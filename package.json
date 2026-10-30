@@ -1,0 +1,16 @@
+{
+  "name": "fleet-monitor",
+  "version": "1.0.0",
+  "description": "Local process and session activity dashboard with an offline demo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
