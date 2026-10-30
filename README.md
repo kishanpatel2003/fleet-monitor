@@ -1,38 +1,44 @@
 # Fleet Monitor
 
-A small local dashboard for a human operator and a fleet of coding/research agents. It tracks activity transitions, shows how long each agent has been active or resting, and refreshes counters in the browser.
+A local dashboard for a fleet of coding and research agents. Track activity transitions, time active or resting, and last-seen timestamps.
 
-## Try it
+## Getting started
 
-Node.js 20+ is required.
+Node.js 20+:
 
 ```sh
 npm ci
 npm start
 ```
 
-Open http://127.0.0.1:3333. The default is an offline simulation with synthetic activity. It does not inspect processes, read sessions, or contact a gateway.
+Open http://127.0.0.1:3333. It starts with generated example activity; connect your fleet using the configuration below.
 
 ```sh
 npm test
 ```
 
-## Monitor a local fleet
+## Connect a fleet
 
-Copy `.env.example` to `.env`, configure the optional probes, then run:
+Copy `.env.example` to `.env`, configure the probes, and run:
 
 ```sh
 node --env-file=.env server.js
 ```
 
-Set `FLEET_MODE=live`. `SESSIONS_DIR` detects files modified in the past two minutes. `RESEARCH_PROCESS_MATCH` and `BUILD_PROCESS_MATCH` match local process command lines; keep match strings specific to your agents. `OPENCLAW_GATEWAY_URL` and `OPENCLAW_GATEWAY_TOKEN` enable an authenticated health check. `STATE_FILE` optionally persists status timestamps outside the source tree. The server binds to loopback.
+| Variable | Purpose |
+| --- | --- |
+| `FLEET_MODE=live` | Enable local activity probes |
+| `SESSIONS_DIR` | Watch for files modified in the past two minutes |
+| `RESEARCH_PROCESS_MATCH` / `BUILD_PROCESS_MATCH` | Match agent process command lines |
+| `OPENCLAW_GATEWAY_URL` / `OPENCLAW_GATEWAY_TOKEN` | Check an authenticated gateway |
+| `STATE_FILE` | Persist status timestamps outside the source tree |
 
-This is a lightweight activity heuristic, not proof that an agent completed a task or is making useful progress. The operator indicator means the dashboard is running; it does not detect human presence. The UI is read-only and has no agent-control features.
+The server binds to loopback. Status reflects process, file, and gateway activity; it does not measure task completion. The operator indicator means the dashboard is running.
 
 ## How it works
 
-An Express server polls every five seconds and records transitions. The vanilla JavaScript UI polls `/api/status` and updates elapsed-time counters every second. Credentials stay on the server; status responses contain generic agent labels and timestamps.
+An Express server polls every five seconds and records transitions. The browser polls `/api/status` and refreshes elapsed-time counters every second. The dashboard is read-only; credentials stay on the server.
 
 ## License
 
-MIT
+[MIT](LICENSE)

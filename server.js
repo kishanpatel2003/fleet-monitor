@@ -87,7 +87,7 @@ if (require.main === module) {
   monitor.poll().then(() => {
     setInterval(() => monitor.poll().catch(() => console.error('Status polling failed')), 5000);
     const port = Number(process.env.PORT || 3333);
-    monitor.app.listen(port, '127.0.0.1', () => console.log(`Fleet Monitor: http://127.0.0.1:${port} (${process.env.FLEET_MODE || 'demo'} mode)`));
+    monitor.app.listen(port, '127.0.0.1', () => console.log(`Fleet Monitor: http://127.0.0.1:${port} (${process.env.FLEET_MODE === 'live' ? 'connected fleet' : 'example activity'})`));
   }).catch(error => { console.error(error.message); process.exitCode = 1; });
 }
 

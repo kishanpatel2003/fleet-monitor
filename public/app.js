@@ -122,6 +122,8 @@
       dot.classList.add('polling');
       const res = await fetch('/api/status');
       const data = await res.json();
+      document.getElementById('activity-mode').textContent =
+        data.mode === 'live' ? 'Connected fleet' : 'Example activity';
 
       // Store original durations for live ticking
       for (const name of AGENTS) {

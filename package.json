@@ -1,7 +1,7 @@
 {
   "name": "fleet-monitor",
   "version": "1.0.0",
-  "description": "Local process and session activity dashboard with an offline demo",
+  "description": "Local agent activity dashboard with status transitions and elapsed-time counters",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
